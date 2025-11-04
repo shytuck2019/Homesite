@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: homebite-backend
+    env: node
+    branch: main
+    plan: starter
+    buildCommand: 'cd backend && npm ci && node migrate.js && node seed.js'
+    startCommand: 'cd backend && node server.js'
+  - type: static
+    name: homebite-frontend
+    env: static
+    branch: main
+    buildCommand: 'cd frontend && npm ci && npm run build'
+    staticPublishPath: 'frontend/dist'
+databases:
+  - name: homebite-db
+    engine: postgres
+    plan: starter
